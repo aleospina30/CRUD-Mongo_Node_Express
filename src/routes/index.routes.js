@@ -3,18 +3,24 @@ import Task from "../models/Task";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.render("index");
+router.get("/", async (req, res) => {
+
+  //Se le agrega el .lena() para que devuelva objetos de js y no de MongoDB
+  const tasks = await Task.find().lean()
+
+  res.render("index", { tasks: tasks });
 });
 
-router.post("/tasks/add", async(req, res) => {
+router.post("/tasks/add", async (req, res) => {
+  try{
+    const task = Task(req.body);
 
-  const task = Task(req.body);
+  await task.save();
 
- await task.save()
-
- res.redirect("/");
-
+  res.redirect("/");
+  }catch(error){
+    console.log(error);
+  }
 });
 
 router.get("/about", (req, res) => {
