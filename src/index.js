@@ -1,6 +1,6 @@
 import app from "./app"
 import './database'
+import { PORT } from "./config";
 
-
-app.listen(8787);
-console.log("Server on port", 8787);
+app.listen(PORT);
+console.log("Server on port", PORT);
