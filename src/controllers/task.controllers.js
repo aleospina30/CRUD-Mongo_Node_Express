@@ -8,9 +8,7 @@ export const renderTasks = async (req, res) => {
 export const createTask = async (req, res) => {
   try {
     const task = Task(req.body);
-
     await task.save();
-
     res.redirect("/");
   } catch (error) {
     console.log(error);
